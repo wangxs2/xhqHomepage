@@ -8,23 +8,26 @@
     </div>
     <div class="mean-list">
       <div
-        :class="[nowindex == index ? 'mean-iteam black' : 'mean-iteam']"
+        class="mean-iteam"
         v-for="(iteam, index) in menuData"
-        @mouseover="isnow(iteam, index)"
-        @click="topath(iteam)"
+        @mouseleave="nomean(iteam)"
+        @mouseenter="isnow(iteam, index)"
+        @click="topath(iteam, index)"
         :key="index"
       >
-        <!-- @mouseleave="nomean(iteam)" -->
-        <span class="font-mean" style="cursor: pointer">{{ iteam.name }}</span>
-        <div class="children-meab" v-if="iteam.children && nowindex == index">
+        <span
+          :class="nowindex1 == index ? 'font-mean font-mean1' : 'font-mean'"
+          style="cursor: pointer"
+          >{{ iteam.name }}</span
+        >
+        <div
+          class="children-meab"
+          v-if="iteam.children && nowindex == index && isnowmean"
+        >
           <div v-for="(item, inde) in iteam.children" :key="inde">
-            <div
-              :class="[subNowindex == inde ? 'font-mean black' : 'font-mean']"
-              style="cursor: pointer"
-              @click="subToPath(item, inde)"
-            >
-              {{ item.name }}
-            </div>
+            <span class="font-mean" style="cursor: pointer">{{
+              item.name
+            }}</span>
           </div>
         </div>
       </div>
@@ -98,8 +101,9 @@ export default {
       ],
       mySwiper: null,
       isnowmean: false,
+      ishow: false,
       nowindex: 0,
-      subNowindex: null
+      nowindex1: 1,
     };
   },
   methods: {
@@ -117,7 +121,8 @@ export default {
       console.log(row);
       this.isnowmean = false;
     },
-    topath (row) {
+    topath (row, idex) {
+      this.nowindex1 = idex;
       if (row.pathurl) {
         this.$router.push(row.pathurl);
       }
@@ -189,7 +194,11 @@ export default {
           color: #fff;
         }
       }
-      .mean-iteam:hover {
+      .font-mean1 {
+        background: black;
+        color: #ffffff;
+      }
+      .font-mean:hover {
         background: black;
         color: #ffffff;
       }

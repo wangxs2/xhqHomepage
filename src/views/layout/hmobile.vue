@@ -14,6 +14,7 @@
             style="height:100%"
             :items="menuData"
             :active-id.sync="activeId"
+            @click-nav="topath"
             :main-active-index.sync="activeIndex"
             />
         </div>
@@ -27,7 +28,7 @@ export default {
   data() {
     return {
     show:false,
-         activeId: 1,
+      activeId: 1,
       activeIndex: 0,
       menuData: [
         {
@@ -98,8 +99,10 @@ export default {
       this.isnowmean = false;
     },
     topath(row) {
-      if (row.pathurl) {
-        this.$router.push(row.pathurl);
+      console.log(row)
+      this.show = false;
+      if (this.menuData[row].pathurl) {
+        this.$router.push(this.menuData[row].pathurl);
       }
     }
   }
@@ -115,6 +118,9 @@ export default {
   box-sizing: border-box;
   padding: 0.1rem;
   flex: 1;
+  .van-sidebar-item--select::before{
+    background-color:black;
+  }
   .van-tree-select{
       height: 100% !important;
   }

@@ -1,32 +1,34 @@
 <template>
   <div class="all-box">
-    
-    
     <hpc v-if="$store.getters.getDemoValue==2"></hpc>
     <hmobile v-if="$store.getters.getDemoValue==1"></hmobile>
-    <div class="banner">
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide swiper-slide1">
-            <div style="font-size:0.20rem">上海北斗导航</div>
-            <div style="font-size:0.40rem;margin-top:0.05rem">研发与转化功能型平台</div>
-            <div style="font-size:0.18rem;margin-top:0.6rem">打造世界顶尖的导航产业技术创新服务平台</div>
-          </div>
-          <div class="swiper-slide swiper-slide2"></div>
-          <div class="swiper-slide swiper-slide3"></div>
-        </div>
-        <!-- 小圆点-->
-        <div class="swiper-pagination"></div>
-      </div>
-    </div>
+   
     <div class="appmain">
       <app-main></app-main>
+    </div>
+    <div class="footer-box">
+        <div class="mean-list">
+          <div
+            class="mean-iteam"
+            v-for="(iteam,index) in menuData"
+          
+            @click="topath(iteam,index)"
+            :key="index"
+          >
+            <span :class="nowindex1==index?'font-mean font-mean1':'font-mean'" style="cursor: pointer;">{{iteam.name}}</span>
+        </div>
+      </div>
+        <div style="color:#ffffff; margin-top:0.1rem;">版权所有 © 2019 上海西虹桥导航技术有限公司 盗用必究</div>
+      <div style="display:flex;color:#ffffff;justify-content: center; align-items: center;margin-top:0.01rem;">
+        <div>沪icp备19034830号-1</div>
+        <div  style="display:flex;color:#ffffff;justify-content: center; align-items: center;margin-left:0.1rem"> <img src="http://static.websiteonline.cn/website/plugin/record_police/view/icons/ghs.png"/>  沪公网安备 31011802003918号</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Swiper from "swiper";
+
 import appMain from "./appMain";
 import hmobile from "./hmobile";
 import hpc from "./hpc";
@@ -92,42 +94,20 @@ export default {
       ],
       mySwiper: null,
       isnowmean: false,
-      nowindex: 0
+      nowindex: 0,
+      nowindex1:0,
     };
   },
   created(){
     this.isMobile()
   },
-  mounted() {
-    this.mySwiper = new Swiper(".swiper-container", {
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        stopOnLastSlide: false,
-        disableOnInteraction: false,
-        cirular: true
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      }
-    });
-    /* 鼠标滑过pagination控制swiper切换*/
-    for (let i = 0; i < this.mySwiper.pagination.bullets.length; i++) {
-      this.mySwiper.pagination.bullets[i].onmouseover = function() {
-        this.click();
-      };
-      //如果你在swiper初始化后才决定使用clickable，可以这样设置
-      this.mySwiper.params.pagination.clickable = true;
-      //此外还需要重新初始化pagination
-      this.mySwiper.pagination.destroy();
-      this.mySwiper.pagination.init();
-      this.mySwiper.pagination.bullets
-        .eq(0)
-        .addClass("swiper-pagination-bullet-active");
-    }
-  },
+ 
   methods: {
+     topath(row,idex) {
+      if (row.pathurl) {
+        this.$router.push(row.pathurl);
+      }
+    },
     isMobile() {
       console.log(this.$store.getters.getDemoValue)
       let flag = navigator.userAgent.match(
@@ -155,41 +135,43 @@ export default {
   .header-nav1{
     padding: 0;
   }
-  .banner {
-    width: 100%;
-    height: 5rem;
-    border-bottom: 0.01rem solid #eeeeee;
-    .swiper-container {
-      width: 100%;
-      height: 100%;
-      .swiper-wrapper {
-        width: 100%;
-        height: 100%;
-        .swiper-slide {
-          width: 100%;
-          height: 100%;
-        }
-        .swiper-slide1 {
-          background: url("../../assets/image/banner1.jpg") bottom no-repeat;
-          background-size: cover;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
-          color: #ffffff;
-          box-sizing: border-box;
-          padding-left: 1rem;
-          // padding: 0 0.1rem;
-        }
-        .swiper-slide2 {
-          background: url("../../assets/image/banner2.jpg") bottom no-repeat;
-          background-size: cover;
-        }
-      }
-    }
-  }
+  
   .appmain{
     
+  }
+  .footer-box{
+    width:100%;
+    height:1.3rem;
+    background:black;
+    margin-top:-0.1rem;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.12rem;
+    .mean-list {
+    display: flex;
+    font-size: 0.14rem;
+    margin-left: 0.16rem;
+    color:#ffffff;
+    margin-top:0.1rem;
+    justify-content: center;
+    .mean-iteam {
+      position: relative;
+      margin-right: 0rem;
+      .font-mean {
+        display: block;
+        box-sizing: border-box;
+        padding: 0.05rem 0.1rem;
+        line-height: 0.23rem;
+        white-space: nowrap;
+      }
+      
+    }
+    .mean-iteam:last-child {
+      margin-right: 0;
+    }
+  }
   }
 }
 </style>
