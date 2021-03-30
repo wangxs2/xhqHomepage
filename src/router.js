@@ -3,9 +3,16 @@ import Router from 'vue-router';
 import news from '@/views/news/index' 
 import home from '@/views/home/index'
 import platform from '@/views/platform/index' 
+import joinUs from '@/views/joinUs/index' 
+import joinUsDetail from '@/views/joinUsDetail/index' 
 
 Vue.use(Router);
 
+const originalPush = Router.prototype.push
+//修改原型对象中的push方法
+Router.prototype.push = function push(location) {
+   return originalPush.call(this, location).catch(err => err)
+}
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
@@ -34,6 +41,16 @@ export default new Router({
           path: '/platform',
           name: '平台介绍',
           component:platform,
+        },
+        {
+          path: '/joinUs',
+          name: '加入我们',
+          component:joinUs,
+        },
+        {
+          path: '/joinUsDetail',
+          name: '加入我们详情',
+          component:joinUsDetail,
         },
         
       ],

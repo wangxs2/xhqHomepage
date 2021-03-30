@@ -3,22 +3,28 @@
     <div class="logo">
       <img src="../../assets/image/logo.png" />
       <div class="myeng">
-        <span style="font-size:0.20rem;">上海北斗导航研发与转化功能型平台</span>
+        <span style="font-size: 0.2rem">上海北斗导航研发与转化功能型平台</span>
       </div>
     </div>
     <div class="mean-list">
       <div
-        class="mean-iteam"
-        v-for="(iteam,index) in menuData"
-        @mouseleave="nomean(iteam)"
-        @mouseenter="isnow(iteam,index)"
+        :class="[nowindex == index ? 'mean-iteam black' : 'mean-iteam']"
+        v-for="(iteam, index) in menuData"
+        @mouseover="isnow(iteam, index)"
         @click="topath(iteam)"
         :key="index"
       >
-        <span class="font-mean" style="cursor: pointer;">{{iteam.name}}</span>
-        <div class="children-meab" v-if="iteam.children&&nowindex==index">
-          <div v-for="(item,inde) in iteam.children" :key="inde">
-            <span class="font-mean" style="cursor: pointer;">{{item.name}}</span>
+        <!-- @mouseleave="nomean(iteam)" -->
+        <span class="font-mean" style="cursor: pointer">{{ iteam.name }}</span>
+        <div class="children-meab" v-if="iteam.children && nowindex == index">
+          <div v-for="(item, inde) in iteam.children" :key="inde">
+            <div
+              :class="[subNowindex == inde ? 'font-mean black' : 'font-mean']"
+              style="cursor: pointer"
+              @click="subToPath(item, inde)"
+            >
+              {{ item.name }}
+            </div>
           </div>
         </div>
       </div>
@@ -28,7 +34,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       menuData: [
         {
@@ -52,14 +58,18 @@ export default {
         },
         {
           name: "机构设置",
+          pathurl: "/setUp/setUpOne",
           children: [
             {
+              pathurl: "/setUp/setUpOne",
               name: "智能无人系统感知与导航联合实验室"
             },
             {
+              pathurl: "/setUp/setUpTwo",
               name: "卫星导航测试实验室"
             },
             {
+              pathurl: "/setUp/setUpTwo",
               name: "智慧交通研发服务创新平台"
             }
           ]
@@ -69,12 +79,14 @@ export default {
         },
         {
           name: "新闻动态",
-          pathurl: "/news",
+          pathurl: "/news/newsOne",
           children: [
             {
+              pathurl: "/news/newsOne",
               name: "平台新闻"
             },
             {
+              pathurl: "/news/newsTwo",
               name: "行业资讯"
             }
           ]
@@ -85,23 +97,33 @@ export default {
       ],
       mySwiper: null,
       isnowmean: false,
-      nowindex: 0
+      nowindex: 0,
+      subNowindex: null
     };
   },
-  methods:{
-    isnow(row, index) {
+  methods: {
+    isnow (row, index) {
       console.log(row);
+      if (this.nowindex != index) {
+        this.subNowindex = null
+      } else {
+        this.subNowindex = 0
+      }
       this.nowindex = index;
       this.isnowmean = true;
     },
-    nomean(row) {
+    nomean (row) {
       console.log(row);
       this.isnowmean = false;
     },
-    topath(row) {
+    topath (row) {
       if (row.pathurl) {
         this.$router.push(row.pathurl);
       }
+    },
+    subToPath (item, index) {
+      this.subNowindex = index
+      this.$router.push(row.pathurl);
     }
   }
 };
@@ -140,6 +162,12 @@ export default {
     .mean-iteam {
       position: relative;
       margin-right: 0rem;
+      &.black {
+        span {
+          background: black;
+          color: #fff;
+        }
+      }
       .children-meab {
         position: absolute;
         left: 0;
@@ -155,8 +183,12 @@ export default {
         padding: 0.05rem 0.1rem;
         line-height: 0.23rem;
         white-space: nowrap;
+        &.black {
+          background: black;
+          color: #fff;
+        }
       }
-      .font-mean:hover {
+      .mean-iteam:hover {
         background: black;
         color: #ffffff;
       }

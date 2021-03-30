@@ -23,7 +23,7 @@ export default new Vuex.Store({
 
             state.demoValue = demoValue
 
-        }
+        },
 
     },
 
@@ -31,7 +31,7 @@ export default new Vuex.Store({
 
         //get方法
 
-        getDemoValue: state => state.demoValue
+        getDemoValue: state => state.demoValue,
 
     },
 

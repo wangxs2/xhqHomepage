@@ -1,5 +1,5 @@
 <template>
-  <div class="news-box">
+  <div class="join-us-detail">
     <router-view></router-view>
   </div>
 </template>
@@ -8,14 +8,15 @@
 
 export default {
   mounted () {
-    console.log(this.$store.getters.getTwoMenu, '99999')
+  },
+  methods: {
   }
 
 }
 </script>
 
 <style>
-.news-box {
+.join-us-detail {
   width: 100%;
   height: 100%;
 }

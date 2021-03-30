@@ -1,6 +1,6 @@
 <template>
-  <div class="news-box">
-    <router-view></router-view>
+  <div class="join-us-detail">
+    <img src="../../../assets/image/news2.jpg" style="width: 100%" />
   </div>
 </template>
 
@@ -8,14 +8,15 @@
 
 export default {
   mounted () {
-    console.log(this.$store.getters.getTwoMenu, '99999')
+  },
+  methods: {
   }
 
 }
 </script>
 
 <style>
-.news-box {
+.join-us-detail {
   width: 100%;
   height: 100%;
 }
