@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     goDetail () {
-      this.$router({ path: '/joinUsDetail' })
+      this.$router.push('/joinUsDetail')
     }
   }
 

@@ -92,7 +92,8 @@ export default {
           ]
         },
         {
-          name: "加入我们"
+          name: "加入我们",
+          pathurl: "/joinUs",
         }
       ],
       mySwiper: null,
@@ -123,7 +124,7 @@ export default {
     },
     subToPath (item, index) {
       this.subNowindex = index
-      this.$router.push(row.pathurl);
+      this.$router.push(item.pathurl);
     }
   }
 };
