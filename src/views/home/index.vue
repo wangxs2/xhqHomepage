@@ -32,12 +32,12 @@
           您的姓名 <input class="srk"/>
         </div>
         <div style="margin-top:0.1rem">
-          您的电话 <input class="srk"/>
+          您的电话<span style="color:red;">*</span> <input class="srk"/>
         </div>
         <div style="margin-top:0.1rem;">
-          咨询内容 <textarea rows="4" cols="20"></textarea>
+          咨询内容  <textarea rows="4" cols="20"></textarea>
         </div>
-        <div style="text-align:right">
+        <div style="text-align:center">
           <button>提交</button>
         </div>
         
