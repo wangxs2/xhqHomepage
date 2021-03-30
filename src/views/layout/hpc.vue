@@ -12,11 +12,11 @@
         v-for="(iteam,index) in menuData"
         @mouseleave="nomean(iteam)"
         @mouseenter="isnow(iteam,index)"
-        @click="topath(iteam)"
+        @click="topath(iteam,index)"
         :key="index"
       >
-        <span class="font-mean" style="cursor: pointer;">{{iteam.name}}</span>
-        <div class="children-meab" v-if="iteam.children&&nowindex==index">
+        <span :class="nowindex1==index?'font-mean font-mean1':'font-mean'" style="cursor: pointer;">{{iteam.name}}</span>
+        <div class="children-meab" v-if="iteam.children&&nowindex==index&&isnowmean">
           <div v-for="(item,inde) in iteam.children" :key="inde">
             <span class="font-mean" style="cursor: pointer;">{{item.name}}</span>
           </div>
@@ -85,7 +85,9 @@ export default {
       ],
       mySwiper: null,
       isnowmean: false,
-      nowindex: 0
+      ishow: false,
+      nowindex: 0,
+      nowindex1:1,
     };
   },
   methods:{
@@ -98,7 +100,8 @@ export default {
       console.log(row);
       this.isnowmean = false;
     },
-    topath(row) {
+    topath(row,idex) {
+      this.nowindex1 = idex;
       if (row.pathurl) {
         this.$router.push(row.pathurl);
       }
@@ -155,6 +158,10 @@ export default {
         padding: 0.05rem 0.1rem;
         line-height: 0.23rem;
         white-space: nowrap;
+      }
+      .font-mean1{
+         background: black;
+        color: #ffffff;
       }
       .font-mean:hover {
         background: black;
